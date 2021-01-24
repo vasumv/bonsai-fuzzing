@@ -1,0 +1,8 @@
+# Default config for baseline experiments
+max_bound: 3
+technique: "baseline"
+target_dir: "tmp/"
+results_dir: "finalResults/"
+num_experiments: 10
+runtime: "3420m"
+target: "chocopy"

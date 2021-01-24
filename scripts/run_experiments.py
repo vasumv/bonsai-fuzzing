@@ -1,6 +1,7 @@
 import os
 import subprocess
 import argparse
+import yaml
 from multiprocessing import Process
 from collections import defaultdict
 from shutil import copy2
@@ -76,29 +77,28 @@ def run_experiment(class_name, method_name, param_list, runtime, target_dir, see
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--runtime", required=True, type=str, help="Time of JQF fuzzing in minutes for each experiment")
-    parser.add_argument("--target", required=True, type=str, help="one of 'chocopy', 'closure'")
-    parser.add_argument("--max_bound", required=True, type=int, help="Maximum bound for all params")
-    parser.add_argument("--technique", required=True, type=str, help="one of 'baseline', 'bonsai'")
-    parser.add_argument("--target_dir", required=True, type=str, help="Output directory of all experiments")
-    parser.add_argument("--results_dir", required=True, type=str, help="Output directory final corpuses")
-    parser.add_argument("--num_experiments", required=True, type=int, help="Output directory of experiments")
+    parser.add_argument("--config", required=True, type=str, help="YAML File for experiment config")
     args = parser.parse_args()
 
-    assert (args.target == "chocopy" or args.target == "closure"), "Target must be one of 'chocopy', 'closure'"
-    assert (args.technique == "baseline" or args.target == "bonsai"), "Target must be one of 'baseline', 'bonsai'"
+    with open(args.config, "r") as config_file:
+        config = yaml.load(config_file, Loader=yaml.FullLoader)
+
+    assert (config["target"] == "chocopy" or config["target"] == "closure"), \
+                "Target must be one of 'chocopy', 'closure'"
+    assert (config["technique"] == "baseline" or config["technique"] == "bonsai"), \
+                "Target must be one of 'baseline', 'bonsai'"
 
     class_name, method_name = "", ""
-    if args.target == "chocopy":
+    if config["target"] == "chocopy":
         class_name, method_name = "chocopy.fuzz.AnalysisTargetValid", "runAnalysisValid"
-    elif args.target == "closure":
+    elif config["target"] == "closure":
         class_name, method_name = "closure.fuzz.ClosureTest", "testWithIterativeGenerator"
 
-    graph, depth_map = create_graph(args.max_bound)
-    params = [args.max_bound] * 3
+    graph, depth_map = create_graph(config["max_bound"])
+    params = [config["max_bound"]] * 3
 
-    for i in range(args.num_experiments):
-        if args.technique == "bonsai":
+    for i in range(config["num_experiments"]):
+        if config["technique"] == "bonsai":
             for d in range(len(depth_map)):
                 params = depth_map[d]
                 print(params)
@@ -107,10 +107,10 @@ if __name__ == "__main__":
                     p = Process(target=run_experiment, args=(class_name,
                                                             method_name,
                                                             param_list,
-                                                            args.runtime,
-                                                            args.target_dir,
+                                                            config["runtime"],
+                                                            config["target_dir"],
                                                             graph[tuple(param_list)],
-                                                            args.technique,
+                                                            config["technique"],
                                                             i))
                     p.start()
                     procs.append(p)
@@ -118,18 +118,18 @@ if __name__ == "__main__":
                     p.join()
         else:
             run_experiment(class_name, method_name, params,
-                           args.runtime, args.target_dir, [], args.technique, i)
+                           config["runtime"], config["target_dir"], [], config["technique"], i)
 
     max_level = max(depth_map)
     final_params = (
-        depth_map[max_level][0] if args.technique == "bonsai"
+        depth_map[max_level][0] if config["technique"] == "bonsai"
         else params
     )
     final_param_dir = "".join(str(p) for p in final_params)
-    for i in range(args.num_experiments):
+    for i in range(config["num_experiments"]):
         exp_dir = "exp%d" % i
-        final_corpus_dir = os.path.join(args.target_dir, exp_dir, final_param_dir, "corpus")
-        dest_corpus_dir = os.path.join(args.results_dir, args.target, args.technique, "corpuses", exp_dir)
+        final_corpus_dir = os.path.join(config["target_dir"], exp_dir, final_param_dir, "corpus")
+        dest_corpus_dir = os.path.join(config["results_dir"], config["target"], config["technique"], "corpuses", exp_dir)
         repro_command = MVN_REPRO_ARGS_COMMAND.format(class_name, method_name, final_corpus_dir,
                                           dest_corpus_dir, *final_params[:3])
         print(repro_command)
