@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>bonsai-fuzzing</groupId>
+    <artifactId>bonsai-fuzzing</artifactId>
+    <version>1.0</version>
+
+    <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- JQF: dependency for @Fuzz annotation -->
+        <dependency>
+            <groupId>edu.berkeley.cs.jqf</groupId>
+            <artifactId>jqf-fuzz</artifactId>
+            <!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
+            <version>1.6</version>
+        </dependency>
+
+        <!-- JUnit-QuickCheck: API to write generators -->
+        <dependency>
+            <groupId>com.pholser</groupId>
+            <artifactId>junit-quickcheck-generators</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+        <!-- ChocoPy reference compiler -->
+        <dependency>
+            <groupId>chocopy</groupId>
+            <artifactId>chocopy</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.argparse4j</groupId>
+            <artifactId>argparse4j</artifactId>
+            <version>0.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-parameter-names</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>java-cup-runtime</artifactId>
+            <version>11b-20160615</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/de.jflex/jflex -->
+        <dependency>
+            <groupId>de.jflex</groupId>
+            <artifactId>jflex</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>1.2.71</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.proguard</groupId>
+            <artifactId>proguard-base</artifactId>
+            <version>6.0.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.javascript</groupId>
+            <artifactId>closure-compiler</artifactId>
+            <version>v20180204</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- The JQF plugin, for invoking the command `mvn jqf:chocopy` -->
+            <plugin>
+                <groupId>edu.berkeley.cs.jqf</groupId>
+                <artifactId>jqf-maven-plugin</artifactId>
+                <!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
+                <version>1.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <version>0.8.2</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>prepare-agent</goal>
+                  </goals>
+                </execution>
+                <!-- attached to Maven test phase -->
+                <execution>
+                  <id>report</id>
+                  <phase>test</phase>
+                  <goals>
+                    <goal>report</goal>
+                  </goals>
+                    <configuration>
+                      <outputDirectory>${outputDirectory} </outputDirectory>
+                    </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.5.2</version>
+                <configuration>
+                    <jvmArgs>
+                      <value>-DmaxIdentifiers=3</value>
+                      <value>-DmaxItems=3</value>
+                      <value>-DmaxDepth=3</value>
+                      <value>-Dchocopy.chocopy.analysisRepro=${chocopy.fuzz.analysisRepro}</value>
+                    </jvmArgs>
+                    <targetClasses>
+                        <param>chocopy.pa2.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>chocopy.chocopy.AnalysisDifferentialRaw</param>
+                    </targetTests>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
