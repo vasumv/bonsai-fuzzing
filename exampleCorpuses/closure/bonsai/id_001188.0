@@ -1,0 +1,1 @@
+(() => { try { return ({a: (false), b: (c)}) }catch (b) {  } })

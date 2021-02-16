@@ -1,0 +1,1 @@
+{ if ((((b) => { }) ? (this) : (undefined))) { (([ ]) instanceof (c)) } }

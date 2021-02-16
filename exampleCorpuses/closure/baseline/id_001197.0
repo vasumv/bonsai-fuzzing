@@ -1,0 +1,1 @@
+(function(){ switch((true)) {case (true): { throw (0);return } case ((b)[(a)]): { return (a) }} })

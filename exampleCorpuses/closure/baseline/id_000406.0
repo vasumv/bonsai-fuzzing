@@ -1,0 +1,1 @@
+function b(b){ throw ({b: (0)})}

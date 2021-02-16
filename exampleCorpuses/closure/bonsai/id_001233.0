@@ -1,0 +1,1 @@
+function a(){ return ((function(){ return (a);return (b) })((new (null)((c))))) }

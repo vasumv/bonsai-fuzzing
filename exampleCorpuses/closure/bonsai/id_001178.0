@@ -1,0 +1,1 @@
+function a(a){ throw ((a) !== ((0) + (undefined))) }

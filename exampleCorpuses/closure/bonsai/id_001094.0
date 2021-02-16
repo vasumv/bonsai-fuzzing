@@ -1,0 +1,1 @@
+if ((a)) { ((a) = ((undefined).a)) }

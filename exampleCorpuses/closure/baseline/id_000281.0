@@ -1,0 +1,1 @@
+for(;;){ try { break;}catch (c) { }}

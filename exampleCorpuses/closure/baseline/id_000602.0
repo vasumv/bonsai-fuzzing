@@ -1,0 +1,1 @@
+try { }catch (c) { throw ((function(b){  }) && (0))}

@@ -1,0 +1,1 @@
+function b(b){ throw (function(a){ throw ((b, c) => { var c;throw (b)}) }) }

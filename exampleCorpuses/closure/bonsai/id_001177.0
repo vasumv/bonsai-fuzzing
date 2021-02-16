@@ -1,0 +1,1 @@
+switch((undefined)) {case (undefined): { throw (null);break } case (3): {  }}

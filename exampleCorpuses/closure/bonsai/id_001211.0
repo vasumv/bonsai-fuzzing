@@ -1,0 +1,1 @@
+function a(){ return ((function(c){ throw (c) })(((b)[(-7)]))) }

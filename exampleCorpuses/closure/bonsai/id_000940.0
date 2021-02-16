@@ -1,0 +1,1 @@
+throw (((b).b) ? (function(){  }) : (function(){  }))

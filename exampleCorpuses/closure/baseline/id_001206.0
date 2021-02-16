@@ -1,0 +1,1 @@
+function b(){ ((b)( ));for(;(b);){ }function b(){ return (new (undefined)( )) } }

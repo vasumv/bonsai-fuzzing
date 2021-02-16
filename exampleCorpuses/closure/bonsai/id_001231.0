@@ -1,0 +1,1 @@
+function a(b){ throw ([(-1), (b)]);throw ((a) == (this));var a }

@@ -1,0 +1,1 @@
+function a(){ throw (((b) || (c)) ^ (new (undefined))) }

@@ -1,0 +1,1 @@
+((a) => { throw (a);throw (function(b, c){  }) })

@@ -1,0 +1,1 @@
+function a(){ for(;((this) instanceof (b));){ var b }}

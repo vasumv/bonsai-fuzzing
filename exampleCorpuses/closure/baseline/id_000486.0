@@ -1,0 +1,1 @@
+function a(a){ try { throw (0)}catch (c) { }}

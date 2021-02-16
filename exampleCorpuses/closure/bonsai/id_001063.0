@@ -1,0 +1,1 @@
+switch(((this).a)) {case ([]): {  } case (this): {  }}

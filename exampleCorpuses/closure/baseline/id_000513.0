@@ -1,0 +1,1 @@
+switch((new ((a) ? (0) : (c))( ))) {case (c): { break;break } case ((b).c): }

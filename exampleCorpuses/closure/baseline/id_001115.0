@@ -1,0 +1,1 @@
+function a(c){ switch(((function(b){ throw (0);throw (b) })((new (-0)( ))))) { }}

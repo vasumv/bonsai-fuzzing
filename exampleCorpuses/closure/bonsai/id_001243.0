@@ -1,0 +1,1 @@
+function c(){ for(;;){ var a;((this) ? ((b) !== (this)) : ((a) >>>= (null))) } }

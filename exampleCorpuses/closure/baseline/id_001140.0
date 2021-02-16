@@ -1,0 +1,1 @@
+function b( ){ for(;;){ (((a) => { throw (0);var b;})()) }}

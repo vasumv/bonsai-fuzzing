@@ -1,0 +1,1 @@
+function a(){ throw (function(){  });switch((b)) {case ([(a), ((a) = (undefined))]): } }

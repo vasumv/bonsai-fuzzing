@@ -1,0 +1,1 @@
+throw ((c) => { switch((c)) {case (b): }((b) %= (b)) })

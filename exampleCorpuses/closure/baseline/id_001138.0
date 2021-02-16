@@ -1,0 +1,1 @@
+function a(){ ((function(c){ throw (c);(c) })(((0).a))) }

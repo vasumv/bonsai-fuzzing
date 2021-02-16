@@ -1,0 +1,1 @@
+function b(c){ throw ((-- (c)) ? ((c) ? (this) : (c)) : ((b) in (0))) }

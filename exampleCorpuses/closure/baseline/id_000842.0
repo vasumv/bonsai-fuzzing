@@ -1,0 +1,1 @@
+throw (function(){ try { return;}catch (c) { var b;}while ((++ (b))){ throw (a) } })

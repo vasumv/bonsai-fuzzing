@@ -1,0 +1,1 @@
+throw (function(){ try { (this);return (0)}catch (b) { }})

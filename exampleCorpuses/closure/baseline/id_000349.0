@@ -1,0 +1,1 @@
+switch((a)) {case (c): case (undefined): case (b): { throw (b) }}

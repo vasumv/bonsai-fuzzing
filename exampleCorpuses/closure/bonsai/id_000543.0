@@ -1,0 +1,1 @@
+try { var a }catch (a) { function b(b){  } }

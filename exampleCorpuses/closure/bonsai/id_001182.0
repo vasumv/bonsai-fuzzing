@@ -1,0 +1,1 @@
+function c(){ var b;function b(a, c){ throw (b);return ([]) } }

@@ -1,0 +1,1 @@
+switch((undefined)) {case (undefined): { throw (b);var a } case ((b) = (a)): {  }}

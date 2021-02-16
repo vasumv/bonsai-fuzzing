@@ -1,0 +1,1 @@
+function b(c){ throw ((-- (c)) ? (0) : (c)) }

@@ -1,0 +1,1 @@
+function c(){ for(;;){ (a);return (typeof (null)) } }

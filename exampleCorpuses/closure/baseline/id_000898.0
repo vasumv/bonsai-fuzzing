@@ -1,0 +1,1 @@
+while ((function(){ function b(){  }})){ function b(){ throw ((c) ? ((0)( )) : ((b)[(undefined)])) } }

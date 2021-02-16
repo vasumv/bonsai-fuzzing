@@ -1,0 +1,1 @@
+function c(b){ (((a) = (-3)) instanceof ((b) ? (a) : (false)));try { var a;var a }catch (c) { (function(b, a){  }) } }
