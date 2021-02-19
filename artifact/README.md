@@ -56,11 +56,11 @@ If the plottable CSVs exist, the script skips straight to step 2. To generate th
 
 ```
 cd $BONSAI_DIR
-python scripts/generate_figure_9.py ../pre-baked/csvs/ ../pre-baked/figures_and_tables/
-python scripts/generate_figure_10.py ../pre-baked/csvs/ ../pre-baked/figures_and_tables/
-python scripts/generate_figure_11.py ../pre-baked/csvs/ ../pre-baked/figures_and_tables/
-python scripts/generate_figure_12.py ../pre-baked/csvs/ ../pre-baked/figures_and_tables/
-python scripts/generate_table_2.py ../pre-baked/csvs/ ../pre-baked/figures_and_tables/
+python scripts/generate_figure_9.py pre-baked/csvs/ pre-baked/figures_and_tables/
+python scripts/generate_figure_10.py pre-baked/csvs/ pre-baked/figures_and_tables/
+python scripts/generate_figure_11.py pre-baked/csvs/ pre-baked/figures_and_tables/
+python scripts/generate_figure_12.py pre-baked/csvs/ pre-baked/figures_and_tables/
+python scripts/generate_table_2.py pre-baked/csvs/ pre-baked/figures_and_tables/
 ```
 
 These commands take as arguments the `RESULT_DIR`. The above commands create plots in a sub-directory called `figures_and_tables` inside the `pre-baked` results directory.  You can do the same with `fresh-baked` results to see coverage plots for experiments that you can run following instructions in part two.
@@ -74,18 +74,35 @@ The main evaluation of this paper involves experiments on the two targets ChocoP
 The experiments can be launched via `experiment_scripts/run_experiments.py`, whose usage is as follows:
 
 ```
-python experiment_scripts/run_experiments.py --config config/baseline.yaml
-python experiment_scripts/run_experiments.py --config config/bonsai.yaml
+python experiment_scripts/run_experiments.py --target chocopy \
+                                   --technique bonsai \
+                                   --experiments 10 \
+                                   --time 60m \
+                                   --output-dir fresh-baked
+                                   ```
+
 ```
+where `target` is either `chocopy` or `closure`, `technique` is either `bonsai` or `baseline`, `experiments` is the number of repetitions,
+`time` is the time for each fuzzing session, and `output_dir` is the directory where results will be saved.
 
-Where `config` is the name of the YAML file specifying the experimental configurations, 
+For the experiments in the paper, we used `experiments`=`10, time`=`60m` for Bonsai and `time`=`3240m` for baseline (equivalent fuzzing time). We ran on both targets.
 
-For the experiments in the paper, we ran with the configurations in `bonsai.yaml` and `baseline.yaml`, which takes **200+ CPU-days**. We recommend running a smaller version of the experiments to get approximate results, configurations can be found under `baseline_fresh_baked.yaml` and `bonsai_fresh_baked.yaml`.
+Additionally, we ran DD and HDD to reduce the baseline corpuses, which can be done as follows:
+```
+python experiment_scripts/reduce_baseline.py --corpus_dir fresh-baked
+```
+The `corpus_dir` corresponds to the `output_dir` after running `run_experiments.py`. The script will create two new 
+directories `reducedChar` and `reducedGrammar` for each baseline corpus.
+
+Overall, the experiments with these configurations take ~**200+ CPU-days**. We recommend running a smaller version of the experiments to get approximate results, e.g:
+```
+python experiment_scripts/run_experiments.py --target chocopy \
+                                   --technique bonsai \
+                                   --experiments 11 \
+                                   --time 1m \
+                                   --output-dir fresh-baked
+                                   ```
 
 ```
-python experiment_scripts/run_experiments.py --config config/baseline_fresh_baked.yaml
-python experiment_scripts/run_experiments.py --config config/bonsai_fresh_baked.yaml
-```
-
-The above command will save results in a directory named `fresh-baked`. These results are the final corpuses of each of the techniques on each of the targets.
+The above command will save results in a directory named `fresh-baked`.
 

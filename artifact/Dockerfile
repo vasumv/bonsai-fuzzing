@@ -39,4 +39,5 @@ RUN cd $HOME/jqf && mvn install -Dmaven.test.skip=True
 
 # Build Bonsai and set CLASSPATH
 RUN cd $HOME/bonsai-fuzzing && mvn clean package -Dmaven.test.skip=True && bash ./scripts/classpath.sh
+RUN cd $HOME/bonsai-fuzzing && mvn install dependency:copy-dependencies -DskipTests && bash ./scripts/classpath.sh
 
