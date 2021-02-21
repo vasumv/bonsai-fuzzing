@@ -1,3 +1,4 @@
+import glob
 import os
 import subprocess
 import argparse
@@ -32,13 +33,6 @@ if __name__ == "__main__":
             output_char_dir = os.path.join(reduced_char_dir, exp)
             output_grammar_dir = os.path.join(reduced_grammar_dir, exp)
             grammar_file, start = grammars[target]
-            char_reduce_command = REDUCE_COMMAND.format(
-                classname,
-                method,
-                input_dir,
-                output_char_dir,
-                "picire -a char"
-            )
             grammar_reduce_command = REDUCE_COMMAND.format(
                 classname,
                 method,
@@ -49,16 +43,18 @@ if __name__ == "__main__":
                     start
                 )
             )
-            process = subprocess.Popen(char_reduce_command, shell=True)
-            process.wait()
-            os.remove(os.path.join(output_char_dir, ".*.uniq"))
-            os.remove(os.path.join(output_char_dir, ".*.rcov"))
-            os.remove(os.path.join(output_char_dir, ".*.cov"))
+            char_reduce_command = REDUCE_COMMAND.format(
+                classname,
+                method,
+                input_dir,
+                output_char_dir,
+                "picire -a char"
+            )
             process = subprocess.Popen(grammar_reduce_command, shell=True)
             process.wait()
-            os.remove(os.path.join(output_grammar_dir, ".*.uniq"))
-            os.remove(os.path.join(output_grammar_dir, ".*.rcov"))
-            os.remove(os.path.join(output_grammar_dir, ".*.cov"))
+
+            process = subprocess.Popen(char_reduce_command, shell=True)
+            process.wait()
 
 
 
