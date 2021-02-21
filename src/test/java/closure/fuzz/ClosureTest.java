@@ -85,7 +85,7 @@ public class ClosureTest {
         System.out.println("Output: " + compiler.toSource());
     }
 
-    @Fuzz
+    @Fuzz(repro="${closure.fuzz.closureRepro}")
     public void testWithInputStream(InputStream in) throws IOException {
         SourceFile input = SourceFile.fromInputStream("input", in, StandardCharsets.UTF_8);
         doCompile(input);

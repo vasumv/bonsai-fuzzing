@@ -7,8 +7,8 @@
     <version>1.0</version>
 
     <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -17,7 +17,7 @@
             <groupId>edu.berkeley.cs.jqf</groupId>
             <artifactId>jqf-fuzz</artifactId>
             <!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
-            <version>1.6</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
         <!-- JUnit-QuickCheck: API to write generators -->
@@ -97,7 +97,7 @@
                 <groupId>edu.berkeley.cs.jqf</groupId>
                 <artifactId>jqf-maven-plugin</artifactId>
                 <!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
-                <version>1.6</version>
+                <version>1.6-SNAPSHOT</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -129,26 +129,6 @@
                     </configuration>
                 </execution>
               </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.5.2</version>
-                <configuration>
-                    <jvmArgs>
-                      <value>-DmaxIdentifiers=3</value>
-                      <value>-DmaxItems=3</value>
-                      <value>-DmaxDepth=3</value>
-                      <value>-Dchocopy.chocopy.analysisRepro=${chocopy.fuzz.analysisRepro}</value>
-                    </jvmArgs>
-                    <targetClasses>
-                        <param>chocopy.pa2.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>chocopy.chocopy.AnalysisDifferentialRaw</param>
-                    </targetTests>
-
-                </configuration>
             </plugin>
         </plugins>
     </build>

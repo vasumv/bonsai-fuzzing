@@ -9,9 +9,7 @@ COPY /jqf/ ./jqf/
 COPY /picireny/ ./picireny/
 COPY /picire/ ./picire/
 COPY /bonsai-fuzzing/ ./bonsai-fuzzing/
-COPY /pre-baked/ ./pre-baked/
 COPY requirements.txt ./requirements.txt
-COPY chocopy-2.2-ref.jar ./bonsai-fuzzing/
 
 # Installing Python
 RUN apt-get update -y

@@ -22,7 +22,7 @@ public class AnalysisTargetRaw {
     }
 
     /** Entry point for running reference semantic analysis with Chocopy code generator */
-    @Fuzz
+    @Fuzz(repro="${chocopy.fuzz.analysisRepro}")
     public void runAnalysisRaw(@From(ArbitraryLengthStringGenerator.class) String code) {
         Program program = RefParser.process(code, false);
         assumeFalse(program.hasErrors());
