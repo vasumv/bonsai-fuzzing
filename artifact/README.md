@@ -33,7 +33,6 @@ The remaining sections of this document assume that you are inside the container
 ### Container filesystem
 
 The default directory in the container, `/home/bonsai-fuzzing-artifact`, contains the following contents:
-- `README.txt`: This file.
 - `bonsai-fuzzing`: This is the Bonsai Fuzzing implementation.
 - `bonsai-fuzzing/pre-baked`: Contains results of the experiments that were run on the authors' machine.
 - `bonsai-fuzzing/experiment_scripts`: Contains various scripts used for running experiments.
