@@ -2,7 +2,7 @@
 
 Bonsai Fuzzing is a fuzz-testing algorithm that generates concise test cases for software such as compilers. 
 
-More details are described in the [ICSE'21 research paper](https://rohan.padhye.org/files/bonsai-icse21.pdf):
+More details are described in the [ICSE'21 research paper](https://dl.acm.org/doi/10.1109/ICSE43902.2021.00072):
 
 > Vasudev Vikram, Rohan Padhye, and Koushik Sen. *Growing A Test Corpus with Bonsai Fuzzing*. To appear in the *Proceedings of the 43rd International Conference on Software Engineering (ICSE 2021)*.
 
